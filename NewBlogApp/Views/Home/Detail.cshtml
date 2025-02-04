@@ -1,0 +1,32 @@
+﻿@model DetailViewModel
+@{
+    ViewData["Title"] = Model.Post.Title;
+}
+
+<h1>@Model.Post.Title</h1>
+<p><img src="@Model.Post.CoverImageUrl" /></p>
+@Html.Raw(Model.Post.Content)
+<hr />
+@if (Model.Post.CreatedDate == Model.Post.UpdateDate)
+{
+    <p>Bu yazı @Model.Post.CreatedDate.ToString("f") tarihinde yazıldı.</p>
+} else {
+    <p>Bu yazı @Model.Post.CreatedDate.ToString("f") tarihinde yazıldı ve en son @Model.Post.UpdateDate.ToString("f") tarihinde güncellendi.</p>
+}
+
+<hr />
+<h4>Yorumlar</h4>
+@if(Model.Comments.Count < 1) {
+    <p>Henüz yorum yapılmamış.</p>
+}
+@foreach(var comment in Model.Comments) {
+    <p>@comment.Body - <strong>@comment.Name</strong> (@comment.CreatedDate.ToString("f"))</p>
+}
+<hr />
+<h5>Yorum Ekle</h5>
+<form method="post" autocomplete="off">
+    <p><input required type="text" name="Name" placeholder="Ad Soyad" /></p>
+    <p><input required type="email" name="Email" placeholder="E-Posta Adresi" /></p>
+    <p><textarea rows="2" cols="50" placeholder="Yorum" name="Body"></textarea></p>
+    <p><button class="btn btn-primary">Ekle</button></p>
+</form>

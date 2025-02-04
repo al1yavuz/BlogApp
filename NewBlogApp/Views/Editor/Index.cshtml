@@ -1,0 +1,34 @@
+﻿@model List<Post>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th width="60%">Başlık</th>
+            <th width="20%">Son Düzenleme Tarihi</th>
+            @* <th width="20%">Oluşturulma Tarihi</th> *@
+            <th width="20%" class="text-center">İşlem</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var post in Model)
+        {
+            <tr>
+                <td>
+                    @post.Title 
+                    <a href="/home/detail/@post.Id" target="_blank">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5" />
+                            <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0z" />
+                        </svg>
+                    </a>
+                </td>
+                <td>@post.UpdateDate.ToString("f")</td>
+                @* <td>@post.CreatedDate.ToString("f")</td> *@
+                <td class="text-end">
+                    <a href="/editor/edit/@post.Id" class="btn btn-secondary">Düzenle</a>
+                    <a href="/editor/delete/@post.Id" class="btn btn-danger" onclick="return confirm('Emin misin?')">Sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

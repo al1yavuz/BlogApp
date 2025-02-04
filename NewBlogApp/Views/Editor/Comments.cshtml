@@ -1,0 +1,33 @@
+﻿@model List<PostComment>
+
+<h1>Yorumlar</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Yorum</th>
+            <th>Sayfa</th>
+            <th>Yorumu Yapan</th>
+            <th>Yorum Tarihi</th>
+            <th>Onay Tarihi</th>
+            <th>#</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var comment in Model) {
+            <tr>
+                <td>@comment.Body</td>
+                <td><a href="/home/detail/@comment.PostId" target="_blank">@comment.PostTitle</a></td>
+                <td>@comment.Name</td>
+                <td>@comment.CreatedDate</td>
+                <td>@comment.ApprovalDate</td>
+                <td>
+                    @if(!comment.IsApproved) {
+                        <a href="/editor/approvecomment/@comment.Id" class="btn btn-success">Onayla</a>
+                    }
+                    <a href="/editor/deletecomment/@comment.Id" class="btn btn-danger" onclick="return confirm('Emin misin?')">Sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

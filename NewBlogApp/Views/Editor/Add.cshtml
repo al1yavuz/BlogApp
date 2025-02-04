@@ -1,0 +1,31 @@
+﻿@model Post
+@if (ViewData["SuccessMsg"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Başarılı!</strong> @ViewData["SuccessMsg"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<h1>@(Model == null ? "Yeni içerik ekle" : "Düzenle")</h1>
+<form method="post" autocomplete="off">
+    <p><label><strong>Başlık</strong><br /><input required placeholder="Başlık" name="Title" value="@Model?.Title" /></label></p>
+    <p><label><strong>Görsel</strong><br /><input type="url" required placeholder="Görsel URL" name="CoverImageUrl" value="@Model?.CoverImageUrl" /></label></p>
+    @if (Model != null)
+    {
+        <p><img src="@Model.CoverImageUrl" /></p>
+    }
+    <p><label><strong>Özet</strong><br /><textarea required name="Summary" placeholder="Özet" cols="100" rows="3">@Model?.Summary</textarea></label></p>
+    <p><label><strong>İçerik</strong><br /><textarea required name="Content" placeholder="İçerik" cols="100" rows="10">@Model?.Content</textarea></label></p>
+    @if (Model == null)
+    {
+        <p><button class="btn btn-primary">Ekle</button></p>
+    }
+    else
+    {
+        <p>
+            <button class="btn btn-success">Kaydet</button>
+            <a href="/editor" class="btn btn-link">Vazgeç</a>
+        </p>
+    }
+</form>
